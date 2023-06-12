@@ -1,6 +1,4 @@
-package sort
-
-import "fmt"
+package main
 
 func binarySearch1(nums []int, target int) int {
 	l := 0
@@ -38,9 +36,9 @@ func binarySearch2(nums []int, target int) int {
 	return -1
 }
 
-func main() {
-	nums := []int{1, 3, 7, 9, 23}
-	target := binarySearch1(nums, 3)
-	fmt.Println(target)
-	fmt.Println(binarySearch2(nums, 3))
-}
+// func main() {
+// 	nums := []int{1, 3, 7, 9, 23}
+// 	target := binarySearch1(nums, 3)
+// 	fmt.Println(target)
+// 	fmt.Println(binarySearch2(nums, 3))
+// }

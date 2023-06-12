@@ -6,6 +6,7 @@ func removeElements(head *ListNode, val int) *ListNode {
 	}
 
 	cur := &ListNode{Next: head}
+	dummy := cur
 	// 遍历链表
 	for cur.Next != nil {
 		if cur.Next.Val == val {
@@ -16,5 +17,5 @@ func removeElements(head *ListNode, val int) *ListNode {
 		}
 
 	}
-	return head
+	return dummy.Next
 }

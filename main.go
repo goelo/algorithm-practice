@@ -1,5 +1,14 @@
 package main
 
+import (
+	"fmt"
+	"sync"
+)
+
+type method interface {
+	SayHi1()
+	SayHi2()
+}
 type Person struct {
 	Name string
 	Age  int
@@ -10,8 +19,9 @@ func (p *Person) SayHi1() {
 
 }
 
-func (p Person) SayHi2() {
+func (p *Person) SayHi2() {
 	p.Name = "leon2"
+	fmt.Println("p:", p)
 }
 
 func main() {
@@ -21,15 +31,42 @@ func main() {
 	// arr := []int{4, 6, 2, 1, 9, 8, 3}
 	// sort.HeapSort(arr)
 	// fmt.Println(arr)
-	//p1 := &Person{Name: "test", Age: 10}
-	//fmt.Println("name1 : " + p1.Name)
-	//p1.SayHi1()
-	//fmt.Println("name2 : " + p1.Name)
-	//
-	//p2 := Person{Name: "test1", Age: 11}
-	//fmt.Println("name3: " + p2.Name)
-	//p2.SayHi2()
-	//fmt.Println("name4 : " + p2.Name)
+	// p1 := &Person{Name: "test", Age: 10}
+	// fmt.Println("name1 : " + p1.Name)
+	// p1.SayHi1()
+	// fmt.Println("name2 : " + p1.Name)
+	// p1.SayHi2()
+	// fmt.Println("name6 : " + p1.Name)
+	n := []int{1, 2, 3, 4, 5, 6}
+	num1 := make(chan int, 1)
+	num2 := make(chan int, 1)
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < len(n); i++ {
+			if i%2 == 0 {
+				fmt.Printf("%d", n[<-num2])
+			} else {
+				num1 <- i
+			}
+		}
+		close(num1)
+	}()
+	go func() {
+		defer wg.Done()
+		for i := 0; i < len(n); i++ {
+			if i%2 == 1 {
+				fmt.Printf("%d", n[<-num1])
+			} else {
+				num2 <- i
+			}
+		}
+		close(num2)
+	}()
+	num2 <- 0
+	wg.Wait()
+
 	//type resp struct {
 	//	Errno int
 	//}

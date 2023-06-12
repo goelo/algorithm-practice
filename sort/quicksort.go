@@ -1,4 +1,4 @@
-package sort
+package main
 
 func quicksort(arr []int, left, right int) {
 	if right <= left {

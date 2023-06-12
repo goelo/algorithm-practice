@@ -1,4 +1,6 @@
-package sort
+package main
+
+import "fmt"
 
 func HeapSort(arr []int) {
 	if len(arr) < 2 {
@@ -8,6 +10,7 @@ func HeapSort(arr []int) {
 	for i := 0; i < len(arr); i++ {
 		heapInsert(arr, i)
 	}
+	fmt.Println(arr)
 	// 移除堆顶元素, 然后整理，保证堆顶始终满足大顶 or 小顶
 	heapSize := len(arr)
 	// 堆化
@@ -52,4 +55,10 @@ func heapify(arr []int, index, heapSize int) {
 		index = larger
 		left = 2*index + 1
 	}
+}
+
+func main() {
+	arr := []int{6, 2, 7, 3, 1, 8, 9, 4, 3, 5}
+	HeapSort(arr)
+	fmt.Println(arr)
 }
