@@ -41,3 +41,31 @@ func randomPartition(arr []int, left, right int) int {
 	arr[i], arr[right] = arr[right], arr[i]
 	return i
 }
+
+func quickSort(nums []int, k int) int {
+	return selectK(nums, 0, len(nums)-1, k-1)
+}
+func selectK(nums []int, l, r, target int) int {
+	i := partition(nums, l, r)
+	if i == target {
+		return nums[i]
+	} else if i > target {
+		return selectK(nums, l, i-1, target)
+	}
+	return selectK(nums, i+1, r, target)
+}
+
+func partitionK(nums []int, l, r int) int {
+	index := rand.Intn(r-l+1) + l
+	nums[index], nums[r] = nums[r], nums[index]
+	i := l
+	for k := l; k < r; k++ {
+		if nums[k] > nums[r] {
+			// 交换
+			nums[k], nums[i] = nums[i], nums[k]
+			i++
+		}
+	}
+	nums[i], nums[r] = nums[r], nums[i]
+	return i
+}

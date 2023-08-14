@@ -2,7 +2,7 @@ package main
 
 // 自顶而上
 func SortList(head *ListNode) *ListNode {
-	// ！！！这里终止条件判断两种，因为下面判断的循环条件也是两种。
+	// ！！！这里终止条件判断两种
 	if head == nil || head.Next == nil {
 		return head
 	}
@@ -105,24 +105,24 @@ func sortList(head *ListNode) *ListNode {
 func merge(head1, head2 *ListNode) *ListNode {
 	// 定义空节点
 	dummyHead := &ListNode{}
-	temp, temp1, temp2 := dummyHead, head1, head2
+	temp, p1, p2 := dummyHead, head1, head2
 	// 只要链表1和链表2都没走到尾部
-	for temp1 != nil && temp2 != nil {
+	for p1 != nil && p2 != nil {
 		// 如果左链表小于右链表，左链表链接到dummy上, temp1后移
-		if temp1.Val <= temp2.Val {
-			temp.Next = temp1
-			temp1 = temp1.Next
+		if p1.Val <= p2.Val {
+			temp.Next = p1
+			p1 = p1.Next
 		} else {
-			temp.Next = temp2
-			temp2 = temp2.Next
+			temp.Next = p2
+			p2 = p2.Next
 		}
 		// 链接完之后temp后移
 		temp = temp.Next
 	}
-	if temp1 != nil {
-		temp.Next = temp1
-	} else if temp2 != nil {
-		temp.Next = temp2
+	if p1 != nil {
+		temp.Next = p1
+	} else if p2 != nil {
+		temp.Next = p2
 	}
 	return dummyHead.Next
 }
